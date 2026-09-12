@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>PGP // LEVEL 07</title>
+<style>
+  body { background:#050510; color:#8b9248; font-family:'Courier New', monospace;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .container { max-width:800px; padding:40px; border:1px solid #8b9248;
+               background:rgba(10,10,25,0.9); box-shadow:0 0 40px rgba(139,146,72,0.3); }
+  h1 { font-size:22px; letter-spacing:4px; text-align:center; margin-bottom:10px; }
+  .status { font-size:12px; color:#444; text-align:center; margin-bottom:25px; letter-spacing:2px; }
+  .status .online { color:#00ff88; }
+  .hint { font-size:12px; color:#666; margin-top:20px; line-height:1.7;
+          border-left:2px solid #8b9248; padding-left:15px; }
+  .hint b { color:#8b9248; }
+  .hint code { background:#0a0a1a; padding:2px 6px; color:#00ff88; }
+  .files { display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; }
+  .file { flex:1; min-width:200px; padding:15px; border:1px solid #333; background:#0a0a1a; }
+  .file a { color:#8b9248; text-decoration:none; display:block; font-size:14px; }
+  .file a:hover { color:#00ff88; }
+  .file .name { font-weight:bold; margin-bottom:5px; }
+  .file .desc { font-size:11px; color:#555; }
+  .log { font-size:12px; margin-top:15px; color:#555; min-height:20px; }
+  input { width:100%; padding:12px; margin-top:15px; background:#0a0a1a; border:1px solid #8b9248;
+          color:#8b9248; font-family:'Courier New', monospace; outline:none; }
+  button { margin-top:10px; padding:12px 24px; background:transparent; border:1px solid #8b9248;
+           color:#8b9248; font-family:'Courier New', monospace; cursor:pointer; }
+  button:hover { background:#8b9248; color:#050510; }
+  .error { color:#ff3366; }
+  .success { color:#00ff88; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>PGP BLOCK</h1>
+  <div class="status">
+    NEURAL LINK <span class="online">● ONLINE</span><br>
+    LEVEL 07 / 13
+  </div>
+
+  <div class="hint">
+    // Скачай оба файла. Импортируй ключ. Расшифруй сообщение.<br>
+    // Команды через <code>pgpy</code> (Python):<br>
+    // <code>pip install pgpy</code><br>
+    // <code>key, _ = pgpy.PGPKey.from_file('key.asc')</code><br>
+    // <code>msg = pgpy.PGPMessage.from_file('brain.gpg')</code><br>
+    // <code>print(key.decrypt(msg).message)</code>
+  </div>
+
+  <div class="files">
+    <div class="file">
+      <a href="key.asc" download>
+        <div class="name">📎 key.asc</div>
+        <div class="desc">Публичный PGP-ключ Dr. Kron</div>
+      </a>
+    </div>
+    <div class="file">
+      <a href="brain.gpg" download>
+        <div class="name">📎 brain.gpg</div>
+        <div class="desc">Зашифрованное сообщение</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="hint">
+    После расшифровки получишь <b>XOR-ключ</b> и <b>URL репозитория</b>.<br>
+    Введи XOR-ключ сюда, чтобы открыть следующий уровень.
+  </div>
+
+  <input type="text" id="keyInput" placeholder="XOR_KEY (напр. 0xBrain9Kron)">
+  <button onclick="checkKey()">LINK</button>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  const CORRECT = "0xbrain9kron";
+  function checkKey() {
+    const v = document.getElementById("keyInput").value.trim().toLowerCase();
+    const log = document.getElementById("log");
+    if (v === CORRECT) {
+      log.innerHTML = '<span class="success">>> XOR KEY ACCEPTED. Level 08 → coming soon.</span>';
+    } else {
+      log.innerHTML = '<span class="error">>> WRONG KEY.</span>';
+    }
+  }
+  document.getElementById("keyInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") checkKey();
+  });
+</script>
+</body>
+</html>
