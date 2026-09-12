@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>SIGNAL // LEVEL 03</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#050510; color:#8b9248; font-family:'Courier New', monospace;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .container { max-width:650px; padding:40px; border:1px solid #8b9248;
+               background:rgba(10,10,25,0.9); box-shadow:0 0 40px rgba(139,146,72,0.3); }
+  h1 { font-size:22px; letter-spacing:4px; text-align:center; margin-bottom:10px; color:#8b9248; text-shadow:0 0 10px #8b9248; }
+  .status { font-size:12px; color:#444; text-align:center; margin-bottom:25px; letter-spacing:2px; }
+  .status .online { color:#00ff88; }
+  audio { width:100%; margin:20px 0; }
+  .hint { font-size:12px; color:#666; margin-top:20px; line-height:1.7; border-left:2px solid #8b9248; padding-left:15px; }
+  .hint b { color:#8b9248; }
+  .input-group { display:flex; gap:10px; margin-top:20px; }
+  input { flex:1; padding:12px 16px; background:#0a0a1a; border:1px solid #8b9248;
+          color:#8b9248; font-family:'Courier New', monospace; font-size:14px; outline:none; }
+  input:focus { box-shadow:0 0 15px #8b9248; }
+  button { padding:12px 24px; background:transparent; border:1px solid #8b9248;
+           color:#8b9248; font-family:'Courier New', monospace; cursor:pointer; letter-spacing:2px; }
+  button:hover { background:#8b9248; color:#050510; }
+  .log { font-size:12px; margin-top:15px; min-height:20px; color:#555; }
+  .log .error { color:#ff3366; }
+  .log .success { color:#00ff88; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>SIGNAL ANALYSIS</h1>
+  <div class="status">
+    NEURAL LINK <span class="online">● ONLINE</span><br>
+    LEVEL 03 / 13
+  </div>
+
+  <audio controls src="signal.wav"></audio>
+
+  <div class="hint">
+    // Слышишь только шум? Смотри глубже.<br>
+    // Инструмент: <b>Audacity → Spectrogram</b><br>
+    // В спектре спрятано послание. Прочитай его.
+  </div>
+
+  <div class="input-group">
+    <input type="text" id="keyInput" placeholder="ВВЕДИ ФРАЗУ ИЗ СПЕКТРА" autocomplete="off">
+    <button onclick="checkKey()">LINK</button>
+  </div>
+
+  <div class="log" id="log"></div>
+</div>
+
+<script>
+  const ACCEPTED = [
+    "listen to the heartbeat of the machine",
+    "listen to the heartbeat"
+  ];
+  const NEXT = "/frequencies.html";
+
+  function checkKey() {
+    const v = document.getElementById("keyInput").value.trim().toLowerCase();
+    const log = document.getElementById("log");
+    if (ACCEPTED.includes(v)) {
+      log.innerHTML = '<span class="success">>> SIGNAL DECODED. Opening frequency log...</span>';
+      setTimeout(() => { window.location.href = NEXT; }, 1500);
+    } else {
+      log.innerHTML = '<span class="error">>> WRONG. Signal still encrypted.</span>';
+    }
+  }
+  document.getElementById("keyInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") checkKey();
+  });
+</script>
+</body>
+</html>

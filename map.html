@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>COORDINATES // LEVEL 05</title>
+<style>
+  body { background:#050510; color:#8b9248; font-family:'Courier New', monospace;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .container { max-width:700px; padding:40px; border:1px solid #8b9248;
+               background:rgba(10,10,25,0.9); box-shadow:0 0 40px rgba(139,146,72,0.3); }
+  h1 { font-size:22px; letter-spacing:4px; text-align:center; margin-bottom:10px; }
+  .status { font-size:12px; color:#444; text-align:center; margin-bottom:25px; letter-spacing:2px; }
+  .status .online { color:#00ff88; }
+  img { width:100%; border:1px solid #333; margin:15px 0; }
+  .hint { font-size:12px; color:#666; margin-top:20px; line-height:1.7;
+          border-left:2px solid #8b9248; padding-left:15px; }
+  .hint b { color:#8b9248; }
+  .input-group { display:flex; gap:10px; margin-top:20px; }
+  input { flex:1; padding:12px; background:#0a0a1a; border:1px solid #8b9248;
+          color:#8b9248; font-family:'Courier New', monospace; outline:none; }
+  button { padding:12px 24px; background:transparent; border:1px solid #8b9248;
+           color:#8b9248; font-family:'Courier New', monospace; cursor:pointer; }
+  button:hover { background:#8b9248; color:#050510; }
+  .log { font-size:12px; margin-top:15px; min-height:20px; color:#555; }
+  .log .error { color:#ff3366; }
+  .log .success { color:#00ff88; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LAST KNOWN POSITION</h1>
+  <div class="status">
+    NEURAL LINK <span class="online">● ONLINE</span><br>
+    LEVEL 05 / 13
+  </div>
+  <img src="map.jpg" alt="map">
+  <div class="hint">
+    // Доктор Крон был здесь.<br>
+    // Координаты на картинке — <b>ложь</b>.<br>
+    // Настоящие спрятаны в <b>EXIF</b>.<br>
+    // Инструмент: <b>exiftool map.jpg</b> или любой EXIF-viewer.
+  </div>
+  <div class="input-group">
+    <input type="text" id="keyInput" placeholder="широта,долгота (напр. 55.7287,37.5731)">
+    <button onclick="checkKey()">LINK</button>
+  </div>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  const TARGET = [55.7287, 37.5731];
+  function checkKey() {
+    const raw = document.getElementById("keyInput").value.trim();
+    const log = document.getElementById("log");
+    const parts = raw.split(/[,\s]+/).map(s => parseFloat(s));
+    if (parts.length >= 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+      const dLat = Math.abs(parts[0] - TARGET[0]);
+      const dLon = Math.abs(parts[1] - TARGET[1]);
+      if (dLat < 0.005 && dLon < 0.005) {
+        log.innerHTML = '<span class="success">>> LOCATION CONFIRMED. Redirecting to QR...</span>';
+        setTimeout(() => { window.location.href = "/qr.html"; }, 1800);
+        return;
+      }
+    }
+    log.innerHTML = '<span class="error">>> REJECTED. Look in the metadata.</span>';
+  }
+  document.getElementById("keyInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") checkKey();
+  });
+</script>
+</body>
+</html>

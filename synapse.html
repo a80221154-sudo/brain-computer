@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SYNAPSE // LEVEL 02</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #050510;
+    color: #8b9248a4;
+    font-family: 'Courier New', monospace;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .container {
+    max-width: 600px;
+    padding: 40px;
+    border: 1px solid #8b9248a4;
+    background: rgba(10, 10, 25, 0.9);
+    box-shadow: 0 0 40px rgba(139, 146, 72, 0.3);
+    position: relative;
+  }
+  .container::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, #8b9248a4, #ff00ff, #8b9248a4);
+    z-index: -1;
+    filter: blur(10px);
+    opacity: 0.5;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+  }
+  h1 {
+    font-size: 24px;
+    letter-spacing: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #8b9248a4;
+    text-shadow: 0 0 10px #8b9248a4;
+  }
+  .status {
+    font-size: 12px;
+    color: #444;
+    text-align: center;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+  .status .online { color: #00ff88; }
+  .input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  input {
+    flex: 1;
+    padding: 12px 16px;
+    background: #0a0a1a;
+    border: 1px solid #8b9248a4;
+    color: #8b9248a4;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    letter-spacing: 2px;
+    outline: none;
+  }
+  input:focus {
+    box-shadow: 0 0 15px #8b9248a4;
+  }
+  button {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid #8b9248a4;
+    color: #8b9248a4;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+  }
+  button:hover {
+    background: #8b9248a4;
+    color: #050510;
+    box-shadow: 0 0 20px #8b9248a4;
+  }
+  .log {
+    font-size: 12px;
+    color: #555;
+    margin-top: 20px;
+    min-height: 40px;
+    line-height: 1.6;
+  }
+  .log .error { color: #ff3366; }
+  .log .success { color: #00ff88; }
+  .hint {
+    font-size: 11px;
+    color: #333;
+    margin-top: 30px;
+    text-align: center;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>SYNAPSE GATE</h1>
+  <div class="status">
+    NEURAL LINK <span class="online">● ONLINE</span><br>
+    LEVEL 02 / 13
+  </div>
+
+  <div class="input-group">
+    <input type="text" id="keyInput" placeholder="ENTER HASH" maxlength="8" autocomplete="off">
+    <button onclick="checkKey()">LINK</button>
+  </div>
+
+  <div class="log" id="log"></div>
+
+  <div class="hint">
+    // The first key was hidden in the neuron //
+  </div>
+</div>
+
+<script>
+  const CORRECT = "8b9248a4";
+  const NEXT = "/signal.html";
+
+  function checkKey() {
+    const input = document.getElementById("keyInput").value.trim().toLowerCase();
+    const log = document.getElementById("log");
+
+    if (input === CORRECT) {
+      log.innerHTML = '<span class="success">>> SYNAPSE CONNECTED. Redirecting...</span>';
+      setTimeout(() => {
+        window.location.href = NEXT;
+      }, 1500);
+    } else {
+      log.innerHTML = '<span class="error">>> ACCESS DENIED. Signal corrupted.</span>';
+      document.getElementById("keyInput").value = "";
+    }
+  }
+
+  document.getElementById("keyInput").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") checkKey();
+  });
+</script>
+</body>
+</html>
