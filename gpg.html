@@ -78,7 +78,10 @@
     const v = document.getElementById("keyInput").value.trim().toLowerCase();
     const log = document.getElementById("log");
     if (v === CORRECT) {
-      log.innerHTML = '<span class="success">>> XOR KEY ACCEPTED. Level 08 → coming soon.</span>';
+      log.innerHTML = '<span class="success">>> ACCEPTED. Following the trail...</span>';
+      setTimeout(() => {
+        window.location.href = "https://github.com/a80221154-sudo/brain-computer-repo";
+      }, 1500);
     } else {
       log.innerHTML = '<span class="error">>> WRONG KEY.</span>';
     }
