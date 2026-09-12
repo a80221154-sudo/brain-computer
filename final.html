@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ASSEMBLY // LEVEL 12</title>
+<style>
+  body { background:#050510; color:#8b9248; font-family:'Courier New', monospace;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+  .container { max-width:700px; padding:40px; border:1px solid #8b9248;
+               background:rgba(10,10,25,0.9); box-shadow:0 0 40px rgba(139,146,72,0.3); }
+  h1 { font-size:22px; letter-spacing:4px; text-align:center; margin-bottom:10px; }
+  .status { font-size:12px; color:#444; text-align:center; margin-bottom:25px; letter-spacing:2px; }
+  .status .online { color:#00ff88; }
+  .riddle { font-size:14px; color:#888; line-height:2; text-align:center;
+            margin:30px 0; font-style:italic; }
+  .riddle b { color:#8b9248; }
+  input { width:100%; padding:12px; background:#0a0a1a; border:1px solid #8b9248;
+          color:#8b9248; font-family:'Courier New', monospace; outline:none; text-align:center;
+          letter-spacing:2px; font-size:14px; }
+  button { margin-top:10px; width:100%; padding:12px; background:transparent;
+           border:1px solid #8b9248; color:#8b9248; font-family:'Courier New', monospace;
+           cursor:pointer; letter-spacing:2px; }
+  button:hover { background:#8b9248; color:#050510; }
+  .log { font-size:12px; margin-top:15px; color:#555; text-align:center; min-height:20px; }
+  .log .error { color:#ff3366; }
+  .log .success { color:#00ff88; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>ASSEMBLY</h1>
+  <div class="status">
+    NEURAL LINK <span class="online">● ONLINE</span><br>
+    LEVEL 12 / 13
+  </div>
+
+  <div class="riddle">
+    "The next fragment is buried in the first file you ever saw.<br>
+     Look back to the beginning. The one with the brain."<br><br>
+    <b>One piece in the picture.<br>
+     One piece in the wave.<br>
+     Together they open the door.</b>
+  </div>
+
+  <input type="text" id="keyInput" placeholder="полный invite-код (без https://t.me/+)" autocomplete="off">
+  <button onclick="checkKey()">ASSEMBLE</button>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  // Игрок должен собрать: _ucdlnf5 + nf5cvs3OWYy = _ucdlnf5cvs3OWYy
+  const CORRECT = "_ucdlnf5cvs3owyy";
+  const NEXT = "/end.html";
+  function checkKey() {
+    const v = document.getElementById("keyInput").value.trim().toLowerCase();
+    const log = document.getElementById("log");
+    if (v === CORRECT) {
+      log.innerHTML = '<span class="success">>> ASSEMBLED. The channel awaits.</span>';
+      setTimeout(() => { window.location.href = NEXT; }, 1500);
+    } else {
+      log.innerHTML = '<span class="error">>> Fragment mismatch.</span>';
+    }
+  }
+  document.getElementById("keyInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") checkKey();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>COLD NODES // LEVEL 09</title>
+<style>
+  body { background:#050510; color:#8b9248; font-family:'Courier New', monospace;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .container { max-width:600px; padding:40px; border:1px solid #8b9248;
+               background:rgba(10,10,25,0.9); box-shadow:0 0 40px rgba(139,146,72,0.3); }
+  h1 { font-size:22px; letter-spacing:4px; text-align:center; margin-bottom:10px; }
+  .status { font-size:12px; color:#444; text-align:center; margin-bottom:25px; letter-spacing:2px; }
+  .status .online { color:#00ff88; }
+  .riddle { font-size:14px; color:#666; line-height:1.9; text-align:center;
+            margin:25px 0; font-style:italic; }
+  input { width:100%; padding:12px; background:#0a0a1a; border:1px solid #8b9248;
+          color:#8b9248; font-family:'Courier New', monospace; outline:none; text-align:center;
+          letter-spacing:4px; font-size:16px; }
+  button { margin-top:10px; width:100%; padding:12px; background:transparent;
+           border:1px solid #8b9248; color:#8b9248; font-family:'Courier New', monospace;
+           cursor:pointer; letter-spacing:2px; }
+  button:hover { background:#8b9248; color:#050510; }
+  .log { font-size:12px; margin-top:15px; color:#555; text-align:center; min-height:20px; }
+  .log .error { color:#ff3366; }
+  .log .success { color:#00ff88; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>COLD NODES</h1>
+  <div class="status">
+    NEURAL LINK <span class="online">● ONLINE</span><br>
+    LEVEL 09 / 13
+  </div>
+
+  <div class="riddle">
+    "Only the cold ones count."<br>
+    — readme.txt
+  </div>
+
+  <input type="text" id="keyInput" placeholder="___" maxlength="6" autocomplete="off">
+  <button onclick="checkKey()">TRANSMIT</button>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  const CORRECT = "137";
+  const NEXT = "/lock2.html";
+  function checkKey() {
+    const v = document.getElementById("keyInput").value.trim();
+    const log = document.getElementById("log");
+    if (v === CORRECT) {
+      log.innerHTML = '<span class="success">>> Signal locked. Next frequency...</span>';
+      setTimeout(() => { window.location.href = NEXT; }, 1500);
+    } else {
+      log.innerHTML = '<span class="error">>> Wrong count.</span>';
+    }
+  }
+  document.getElementById("keyInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") checkKey();
+  });
+</script>
+</body>
+</html>

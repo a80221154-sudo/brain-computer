@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>WAVEFORM LOCK // LEVEL 10</title>
+<style>
+  body { background:#050510; color:#8b9248; font-family:'Courier New', monospace;
+         min-height:100vh; display:flex; align-items:center; justify-content:center; }
+  .container { max-width:600px; padding:40px; border:1px solid #8b9248;
+               background:rgba(10,10,25,0.9); box-shadow:0 0 40px rgba(139,146,72,0.3); }
+  h1 { font-size:22px; letter-spacing:4px; text-align:center; margin-bottom:10px; }
+  .status { font-size:12px; color:#444; text-align:center; margin-bottom:25px; letter-spacing:2px; }
+  .status .online { color:#00ff88; }
+  audio { width:100%; margin:20px 0; }
+  .riddle { font-size:13px; color:#666; line-height:1.9; text-align:center;
+            margin:15px 0; font-style:italic; }
+  input { width:100%; padding:12px; background:#0a0a1a; border:1px solid #8b9248;
+          color:#8b9248; font-family:'Courier New', monospace; outline:none; text-align:center;
+          letter-spacing:8px; font-size:20px; }
+  button { margin-top:10px; width:100%; padding:12px; background:transparent;
+           border:1px solid #8b9248; color:#8b9248; font-family:'Courier New', monospace;
+           cursor:pointer; letter-spacing:2px; }
+  button:hover { background:#8b9248; color:#050510; }
+  .log { font-size:12px; margin-top:15px; color:#555; text-align:center; min-height:20px; }
+  .log .error { color:#ff3366; }
+  .log .success { color:#00ff88; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>WAVEFORM LOCK</h1>
+  <div class="status">
+    NEURAL LINK <span class="online">● ONLINE</span><br>
+    LEVEL 10 / 13
+  </div>
+
+  <audio controls src="lock.wav"></audio>
+
+  <div class="riddle">
+    // Four pulses. Four voices. The old phone remembers.
+  </div>
+
+  <input type="text" id="keyInput" placeholder="_ _ _ _" maxlength="4" autocomplete="off">
+  <button onclick="checkKey()">UNLOCK</button>
+  <div class="log" id="log"></div>
+</div>
+<script>
+  const CORRECT = "4821";
+  const NEXT = "/cipher.html";
+  function checkKey() {
+    const v = document.getElementById("keyInput").value.trim();
+    const log = document.getElementById("log");
+    if (v === CORRECT) {
+      log.innerHTML = '<span class="success">>> LOCK RELEASED.</span>';
+      setTimeout(() => { window.location.href = NEXT; }, 1500);
+    } else {
+      log.innerHTML = '<span class="error">>> DENIED.</span>';
+    }
+  }
+  document.getElementById("keyInput").addEventListener("keypress", e => {
+    if (e.key === "Enter") checkKey();
+  });
+</script>
+</body>
+</html>
